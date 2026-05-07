@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Surprise</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <title>Ekkada Click cheye Lalitha </title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
     <style>
         :root {
             --cake-brown: #8d6e63;
@@ -13,252 +18,566 @@
             --letter-black: #121212;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #2c3e50;
+            background: #2c3e50;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            overflow: hidden;
             font-family: 'Poppins', sans-serif;
-            perspective: 2000px;
+        }
+
+        /* COUNTDOWN */
+
+        #countdown {
+            position: fixed;
+            inset: 0;
+            background: var(--pink-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 90px;
+            font-weight: bold;
+            color: white;
+            z-index: 100;
+        }
+
+        /* FIRST PAGE */
+
+        #wishesPage {
+            width: 360px;
+            height: 580px;
+            background: var(--pink-bg);
+            border-radius: 25px;
+            border: 8px solid white;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            visibility: hidden;
+            position: absolute;
+
             overflow: hidden;
         }
 
-        /* --- COUNTDOWN OVERLAY --- */
-        #countdown {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--pink-bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            font-size: 80px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-        }
-
-        /* --- SCREEN 1: CAKE WISHES --- */
-        #wishesPage {
-            background-color: var(--pink-bg);
-            width: 360px;
-            height: 580px;
-            border: 8px solid white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            position: absolute;
-            z-index: 10;
-            transition: opacity 0.8s, transform 0.8s;
-            visibility: hidden; /* Hidden until countdown finishes */
-        }
+        /* CAKE */
 
         .cake-container {
             position: relative;
+            width: 220px;
             height: 180px;
-            width: 200px;
+
             display: flex;
             flex-direction: column-reverse;
             align-items: center;
         }
 
         .layer {
-            width: 170px; height: 35px;
-            background-color: var(--cake-brown);
-            border-bottom: 2px solid #5d4037;
+            height: 35px;
+            background: var(--cake-brown);
+            border-bottom: 3px solid #5d4037;
             transform: translateY(-800px);
         }
 
-        /* Classes to trigger animations via JS */
-        .animate-layer { animation: dropIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+        #l1 {
+            width: 180px;
+        }
+
+        #l2 {
+            width: 150px;
+        }
+
+        #l3 {
+            width: 120px;
+        }
+
+        .animate-layer {
+            animation: dropIn 0.8s forwards;
+        }
 
         .cream {
-            width: 124px; height: 35px;
-            background-color: white;
+            width: 124px;
+            height: 35px;
+            background: white;
+
             position: absolute;
-            bottom: 105px; opacity: 0;
-            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 85% 70%, 70% 100%, 50% 70%, 30% 100%, 15% 70%, 0% 100%);
+            bottom: 105px;
+
+            opacity: 0;
+
+            clip-path: polygon(0% 0%,
+                    100% 0%,
+                    100% 100%,
+                    85% 70%,
+                    70% 100%,
+                    50% 70%,
+                    30% 100%,
+                    15% 70%,
+                    0% 100%);
         }
 
         .candle {
-            width: 8px; height: 40px; background: white;
-            position: absolute; bottom: 140px; opacity: 0;
+            width: 8px;
+            height: 40px;
+            background: white;
+
+            position: absolute;
+            bottom: 140px;
+
+            opacity: 0;
         }
 
         .flame {
-            width: 10px; height: 15px; background: orange; border-radius: 50%;
-            position: absolute; top: -15px; box-shadow: 0 0 10px orange;
+            width: 10px;
+            height: 15px;
+            background: orange;
+            border-radius: 50%;
+
+            position: absolute;
+            top: -15px;
+            left: -1px;
+
+            box-shadow: 0 0 10px orange;
+
             animation: flicker 0.3s infinite alternate;
         }
 
+        /* TEXT */
+
+        .text-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin-top: 35px;
+
+            overflow: hidden;
+        }
+
         .typing-text {
-            margin-top: 30px;
             font-family: 'Great Vibes', cursive;
             font-size: 30px;
             color: var(--accent-pink);
-            width: 0; overflow: hidden; white-space: nowrap;
+
+            overflow: hidden;
+            white-space: nowrap;
+
+            width: 0;
+            max-width: 100%;
         }
 
-        #firstBtn {
+        /* BUTTON */
+
+        .main-btn {
             margin-top: 40px;
-            padding: 12px 25px;
+            padding: 15px 28px;
+
             background: var(--accent-pink);
-            color: white; border: none; border-radius: 50px;
-            cursor: pointer; font-weight: bold; opacity: 0;
+            color: white;
+
+            border: none;
+            border-radius: 50px;
+
+            cursor: pointer;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            opacity: 0;
+
+            transition: 0.3s;
         }
 
-        /* --- SCREEN 2: THE BOOK --- */
+        .main-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* BOOK */
+
         #bookContainer {
-            display: none; 
             width: 340px;
             height: 580px;
+
             position: relative;
-            transform-style: preserve-3d;
+
+            display: none;
         }
 
         .book {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
+
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 1s;
         }
 
         .book-cover {
             position: absolute;
-            width: 100%; height: 100%;
-            background: #d81b60; color: white;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; font-size: 24px; font-weight: bold;
-            border-radius: 0 10px 10px 0; z-index: 5;
+
+            width: 100%;
+            height: 100%;
+
+            background: var(--accent-pink);
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 28px;
+            font-weight: bold;
+
+            border-radius: 0 10px 10px 0;
+
             transform-origin: left;
-            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+            transition: transform 1.5s;
+
+            z-index: 5;
+
             cursor: pointer;
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
-            border: 2px solid rgba(255,255,255,0.2);
-            backface-visibility: hidden;
+
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .book.open .book-cover {
+            transform: rotateY(-150deg);
         }
 
         .letter-content-page {
             position: absolute;
-            width: 100%; height: 100%;
-            background: var(--letter-black); color: #eee;
-            padding: 30px; box-sizing: border-box;
-            border-radius: 0 10px 10px 0; z-index: 1;
-            display: flex; flex-direction: column; justify-content: center;
-            box-shadow: inset 10px 0 30px rgba(0,0,0,0.7);
+
+            width: 100%;
+            height: 100%;
+
+            background: #121212;
+            color: white;
+
+            padding: 30px;
+
+            border-radius: 0 10px 10px 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .close-btn {
-            margin-top: 20px; padding: 8px 15px;
-            background: transparent; border: 1px solid var(--accent-pink);
-            color: var(--accent-pink); border-radius: 5px;
-            cursor: pointer; font-size: 14px; align-self: flex-end;
+        .video-btn {
+            margin-top: 25px;
+
+            padding: 14px 22px;
+
+            background: var(--accent-pink);
+            color: white;
+
+            border: none;
+            border-radius: 50px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+            font-weight: bold;
         }
 
-        .book.open .book-cover { transform: rotateY(-150deg); }
+        /* VIDEO PAGE */
 
-        /* Animation Helpers */
-        .fade-in-trigger { animation: fadeIn 0.8s forwards; }
-        .typing-trigger { animation: typing 2.5s steps(30) forwards; }
+        #videoPage {
+            display: none;
 
-        @keyframes dropIn { to { transform: translateY(0); } }
-        @keyframes fadeIn { to { opacity: 1; } }
-        @keyframes typing { from { width: 0; } to { width: 100%; } }
-        @keyframes flicker { from { transform: scale(1); } to { transform: scale(1.1); } }
+            width: 360px;
+            height: 580px;
+
+            background: black;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            position: absolute;
+        }
+
+        #birthdayVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ANIMATIONS */
+
+        .fade-in-trigger {
+            animation: fadeIn 1s forwards;
+        }
+
+        .typing-trigger {
+            animation: typing 3s steps(35) forwards;
+        }
+
+        @keyframes dropIn {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes flicker {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.1);
+            }
+        }
     </style>
 </head>
+
 <body>
+
+    <!-- COUNTDOWN -->
 
     <div id="countdown">1</div>
 
+    <!-- FIRST PAGE -->
+
     <div id="wishesPage">
+
         <div class="cake-container">
-            <div id="l1" class="layer" style="width: 180px;"></div>
-            <div id="l2" class="layer" style="width: 150px;"></div>
-            <div id="l3" class="layer" style="width: 120px;"></div>
+
+            <div id="l1" class="layer"></div>
+            <div id="l2" class="layer"></div>
+            <div id="l3" class="layer"></div>
+
             <div id="crm" class="cream"></div>
-            <div id="can" class="candle"><div class="flame"></div></div>
+
+            <div id="can" class="candle">
+                <div class="flame"></div>
+            </div>
+
         </div>
-        <div id="text" class="typing-text">happy birthday dear lalith garu</div>
-        <button id="firstBtn" onclick="showBook()">Click for Surprise</button>
+
+        <!-- CENTER TEXT -->
+
+        <div class="text-wrapper">
+            <div id="text" class="typing-text">
+                happy birthday dear lalith garu
+            </div>
+        </div>
+
+        <button id="firstBtn" class="main-btn" onclick="showBook()">
+            Click for Surprise
+        </button>
+
     </div>
 
+    <!-- BOOK -->
+
     <div id="bookContainer">
+
         <div class="book" id="myBook" onclick="openBook()">
+
             <div class="book-cover">
-                <span>Open<br></span>
+                Open
             </div>
-            
+
             <div class="letter-content-page" onclick="event.stopPropagation()">
-                <div style="font-family: 'Great Vibes', cursive; font-size: 28px; color: var(--accent-pink);">Dear Lalitha,</div>
-                <p style="font-size: 15px; line-height: 1.6;">
-                    Inka oka year old ayipoyav kani brain matram same crazy ga undi 😜 <br>
-                    Kani nijamga cheppali ante, nuvvu chala manchi person, chala kind & smart 😊 <br>
-                    Eppudu ila navvutu nannu disturb chestu undu 😆 <br>
-                    once again Happy Birthday🎂<br>
-                    Stay happy, stay crazy… enjoy your day full ga! <br><br>
-                    And And  naku oka doubt undhi adhi... <br>
-                    chepali antay hii ani message cheye...😆
-                </p>
-                <div style="text-align: right; border-top: 1px solid #333; padding-top: 10px; font-style: italic; color: #888;">
-                    Itlu nee manchi snehithudu,<br>
-                    Pranay 
+
+                <div style="
+                    font-family:'Great Vibes',cursive;
+                    font-size:32px;
+                    color:var(--accent-pink);
+                    margin-bottom:20px;
+                ">
+                    Dear Lalitha,
                 </div>
-                <button class="close-btn" onclick="closeBook()">Close Book</button>
+
+                <p style="
+                    font-size:15px;
+                    line-height:1.8;
+                ">
+
+                    endhuku Navuthunav haa...😆 <br>
+
+                    Inka oka year old ayipoyav kani brain matram same crazy ga undi 😜 <br>
+
+                    Kani nijamga cheppali ante, nuvvu chala manchi person, chala kind & smart Lalitha 😊 <br><br>
+
+                    Eppudu ila navvutu undu  <br>
+
+                    Once again Happy Birthday 🎂 <br>
+
+                    Stay happy, stay crazy… enjoy your day full ga!
+
+                </p>
+
+                <div style="
+                    margin-top:20px;
+                    border-top:1px solid #333;
+                    padding-top:10px;
+
+                    text-align:right;
+                    color:#999;
+                    font-style:italic;
+                ">
+                    Itlu nee manchi snehithudu,<br>
+                    Pranay
+                </div>
+
+                <!-- VIDEO BUTTON -->
+
+                <button class="video-btn" onclick="showVideoPage()">
+                    Click for Video Surprise 
+                </button>
+
             </div>
+
         </div>
+
+    </div>
+
+    <!-- VIDEO PAGE -->
+
+    <div id="videoPage">
+
+        <video id="birthdayVideo" controls playsinline>
+
+            <!-- PUT YOUR VIDEO FILE IN SAME FOLDER -->
+            <!-- Example: birthday.mp4 -->
+
+            <source src="birthday.mp4" type="video/mp4">
+
+        </video>
+
     </div>
 
     <script>
-        // Countdown Logic
+
+        // COUNTDOWN
+
         const countDiv = document.getElementById('countdown');
         const wishesPage = document.getElementById('wishesPage');
 
         let count = 1;
+
         const timer = setInterval(() => {
+
             count++;
+
             if (count <= 3) {
+
                 countDiv.innerText = count;
+
             } else {
+
                 clearInterval(timer);
-                countDiv.style.display = 'none'; // Remove countdown
-                startCakeAnimation(); // Begin the cake sequence
+
+                countDiv.style.display = 'none';
+
+                startCakeAnimation();
             }
+
         }, 1000);
 
+        // START CAKE ANIMATION
+
         function startCakeAnimation() {
+
             wishesPage.style.visibility = 'visible';
-            
-            // Sequence the cake drops manually for perfect timing
-            setTimeout(() => document.getElementById('l1').classList.add('animate-layer'), 100);
-            setTimeout(() => document.getElementById('l2').classList.add('animate-layer'), 1100);
-            setTimeout(() => document.getElementById('l3').classList.add('animate-layer'), 2100);
-            setTimeout(() => document.getElementById('crm').classList.add('fade-in-trigger'), 3000);
-            setTimeout(() => document.getElementById('can').classList.add('fade-in-trigger'), 3800);
-            setTimeout(() => document.getElementById('text').classList.add('typing-trigger'), 4500);
-            setTimeout(() => document.getElementById('firstBtn').classList.add('fade-in-trigger'), 7000);
+
+            setTimeout(() => {
+                document.getElementById('l1').classList.add('animate-layer');
+            }, 100);
+
+            setTimeout(() => {
+                document.getElementById('l2').classList.add('animate-layer');
+            }, 1100);
+
+            setTimeout(() => {
+                document.getElementById('l3').classList.add('animate-layer');
+            }, 2100);
+
+            setTimeout(() => {
+                document.getElementById('crm').classList.add('fade-in-trigger');
+            }, 3000);
+
+            setTimeout(() => {
+                document.getElementById('can').classList.add('fade-in-trigger');
+            }, 3800);
+
+            setTimeout(() => {
+                document.getElementById('text').classList.add('typing-trigger');
+            }, 4500);
+
+            setTimeout(() => {
+                document.getElementById('firstBtn').classList.add('fade-in-trigger');
+            }, 7000);
         }
 
+        // SHOW BOOK
+
         function showBook() {
+
             wishesPage.style.opacity = '0';
             wishesPage.style.transform = 'scale(0.8)';
+
             setTimeout(() => {
+
                 wishesPage.style.display = 'none';
+
                 document.getElementById('bookContainer').style.display = 'block';
+
             }, 800);
         }
 
+        // OPEN BOOK
+
         function openBook() {
+
             document.getElementById('myBook').classList.add('open');
         }
 
-        function closeBook() {
-            document.getElementById('myBook').classList.remove('open');
+        // SHOW VIDEO PAGE WITH AUDIO
+
+        function showVideoPage() {
+
+            document.getElementById('bookContainer').style.display = 'none';
+
+            document.getElementById('videoPage').style.display = 'block';
+
+            const video = document.getElementById('birthdayVideo');
+
+            video.muted = false;
+
+            video.play();
+
         }
+
     </script>
+
 </body>
+
 </html>

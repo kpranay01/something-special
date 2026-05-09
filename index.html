@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Ekkada Click cheye Lalitha </title>
+    <title>Ekkada click cheye Lalitha Navaku chapestha 😊</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
@@ -15,7 +14,6 @@
             --cake-brown: #8d6e63;
             --pink-bg: #ffc1cc;
             --accent-pink: #d81b60;
-            --letter-black: #121212;
         }
 
         * {
@@ -49,7 +47,7 @@
             z-index: 100;
         }
 
-        /* FIRST PAGE */
+        /* MAIN PAGE */
 
         #wishesPage {
             width: 360px;
@@ -67,6 +65,8 @@
             position: absolute;
 
             overflow: hidden;
+
+            transition: 0.8s;
         }
 
         /* CAKE */
@@ -162,18 +162,22 @@
             margin-top: 35px;
 
             overflow: hidden;
+            padding: 0 10px;
         }
 
         .typing-text {
             font-family: 'Great Vibes', cursive;
-            font-size: 30px;
+            font-size: 28px;
             color: var(--accent-pink);
+
+            text-align: center;
 
             overflow: hidden;
             white-space: nowrap;
 
             width: 0;
-            max-width: 100%;
+
+            display: inline-block;
         }
 
         /* BUTTON */
@@ -340,7 +344,7 @@
             }
 
             to {
-                width: 100%;
+                width: 520px;
             }
         }
 
@@ -357,6 +361,12 @@
 </head>
 
 <body>
+
+    <!-- BACKGROUND MUSIC -->
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- COUNTDOWN -->
 
@@ -380,13 +390,15 @@
 
         </div>
 
-        <!-- CENTER TEXT -->
+        <!-- TEXT -->
 
         <div class="text-wrapper">
             <div id="text" class="typing-text">
                 happy birthday dear lalith garu
             </div>
         </div>
+
+        <!-- BUTTON -->
 
         <button id="firstBtn" class="main-btn" onclick="showBook()">
             Click for Surprise
@@ -420,17 +432,19 @@
                     line-height:1.8;
                 ">
 
-                    endhuku Navuthunav haa...😆 <br>
+                    endhuku Navuthunav haa... <br>
 
                     Inka oka year old ayipoyav kani brain matram same crazy ga undi 😜 <br>
 
-                    Kani nijamga cheppali ante, nuvvu chala manchi person, chala kind & smart Lalitha 😊 <br><br>
+                    Kani nijamga cheppali ante, nuvvu chala manchi person, chala kind & smart Lalitha 😊 <br>
 
-                    Eppudu ila navvutu undu  <br>
+                    Eppudu ila navvutu undu <br>
+                    Mari party ledha Lalitha naku? 😊<br>
 
+                   
                     Once again Happy Birthday 🎂 <br>
 
-                    Stay happy, stay crazy… enjoy your day full ga!
+                    Stay happy, stay crazy… enjoy your day full ga!😊
 
                 </p>
 
@@ -438,7 +452,6 @@
                     margin-top:20px;
                     border-top:1px solid #333;
                     padding-top:10px;
-
                     text-align:right;
                     color:#999;
                     font-style:italic;
@@ -450,7 +463,7 @@
                 <!-- VIDEO BUTTON -->
 
                 <button class="video-btn" onclick="showVideoPage()">
-                    Click for Video Surprise 
+                    Click for Video Surprise
                 </button>
 
             </div>
@@ -464,24 +477,26 @@
     <div id="videoPage">
 
         <video id="birthdayVideo" controls playsinline>
-
-            <!-- PUT YOUR VIDEO FILE IN SAME FOLDER -->
-            <!-- Example: birthday.mp4 -->
-
             <source src="birthday.mp4" type="video/mp4">
-
         </video>
 
     </div>
 
     <script>
 
-        // COUNTDOWN
-
         const countDiv = document.getElementById('countdown');
         const wishesPage = document.getElementById('wishesPage');
+        const bgMusic = document.getElementById('bgMusic');
 
         let count = 1;
+
+        // CLICK ANYWHERE TO ENABLE AUDIO
+
+        document.body.addEventListener("click", () => {
+            bgMusic.play();
+        }, { once: true });
+
+        // COUNTDOWN
 
         const timer = setInterval(() => {
 
@@ -502,7 +517,7 @@
 
         }, 1000);
 
-        // START CAKE ANIMATION
+        // START ANIMATION
 
         function startCakeAnimation() {
 
@@ -560,7 +575,7 @@
             document.getElementById('myBook').classList.add('open');
         }
 
-        // SHOW VIDEO PAGE WITH AUDIO
+        // SHOW VIDEO PAGE
 
         function showVideoPage() {
 
@@ -568,12 +583,13 @@
 
             document.getElementById('videoPage').style.display = 'block';
 
+            // STOP MUSIC
+
+            bgMusic.pause();
+
             const video = document.getElementById('birthdayVideo');
 
-            video.muted = false;
-
             video.play();
-
         }
 
     </script>
